@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+
+<style>
+    div {
+        padding: 15px 0px;
+        max-width: 400px;
+    }
+
+    button {
+        margin: 10px 0px;
+
+    }
+</style>
+<body>
+
+    <div class="container">
+        <div class="col">
+            <h3>LAB_01</h3>
+
+            <form>
+                <div class="form-group">
+                    <label for="PUT">GET INPUT</label>
+                    <input readonly type="text" class="form-control" id="GETInput" placeholder="GET REQUEST">
+                    <button type="button" class="btn btn-primary btn-get">GET</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="POSTInput">POST INPUT</label>
+                    <input type="number" class="form-control" id="POSTInput" placeholder="POST REQUEST (RESULT)">
+                    <button type="button" class="btn btn-primary btn-post">POST</button>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="PUT">PUT INPUT</label>
+                    <input type="number" class="form-control" id="PUTTInput" placeholder="PUT REQUEST (PUSH STACK)">
+                    <button type="button" class="btn btn-primary btn-put">PUT</button>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary btn-delete">DELETE</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(".btn-get").click(function() {
+            fetch('http://localhost:64157/.AMV', { method: 'GET' })
+              .then(response => response.json())
+              .then(data => $("#GETInput").val(JSON.stringify(data)));
+        });
+
+        $(".btn-post").click(function() {
+            fetch('http://localhost:64157/.AMV?result=' + $("#POSTInput").val(), { method: 'POST' })
+        });
+
+        $(".btn-put").click(function () {
+            fetch('http://localhost:64157/.AMV?add=' + $("#PUTTInput").val(), { method: 'PUT' })
+        });
+
+        $(".btn-delete").click(function () {
+            fetch('http://localhost:64157/.AMV', { method: 'DELETE' })
+        });
+
+    </script>
+
+</body>
+
+</html>
